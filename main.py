@@ -11,7 +11,7 @@ import scipy as sp
 import sys
 import time
 
-nthreads = 4
+nthreads = 2
 assert nthreads < cpu_count()
 
 # Binarize an image
