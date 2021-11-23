@@ -13,6 +13,7 @@ import time
 
 nthreads = 2
 assert nthreads < cpu_count()
+major = cv2.__version__.split('.')[0]
 
 # Binarize an image
 def binarize(img):
@@ -33,7 +34,10 @@ def find_contours_text(img, kernel_size, verbose=False, sort_key=None):
         cv2.waitKey(0)
 
     # find contours
-    _, ctrs, _ = cv2.findContours(dilation.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if major == '3':
+        _, ctrs, _ = cv2.findContours(dilation.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    else:
+        ctrs, _ = cv2.findContours(dilation.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     if sort_key is None:
         sort_key = lambda ctr: cv2.boundingRect(ctr)[0]
